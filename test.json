@@ -1,0 +1,240 @@
+{
+  "id":"66d4e2b09c2109715017184d",
+  "email":"nzubeanthony4@gmail.com",
+  "firstName":"Eze",
+  "lastName":"Chidera",
+  "address":[
+    {
+      "id":"793d346e",
+      "firstName":"Diran",
+      "lastName":"Daniel",
+      "phoneNumber":"09087654321",
+      "state":"Lagos",
+      "city":"Ikeja",
+      "name":"46 Allen Avenue",
+      "defaultAddress":false
+    },
+    {
+      "id":"23ef2264",
+      "firstName":"firstname",
+      "lastName":"lastname",
+      "phoneNumber":"08103720628",
+      "state":"Abia",
+      "city":"Isuikwuato",
+      "name":"Kako bi chicken",
+      "defaultAddress":false
+    },
+    {
+      "id":"1a8aedb1",
+      "firstName":"James",
+      "lastName":"Cordon",
+      "phoneNumber":"08032489912",
+      "state":"Lagos",
+      "city":"Ikeja",
+      "name":"1 Ladipo Street",
+      "defaultAddress":true
+    }
+  ],
+  "gender":null,
+  "dob":null,
+  "roles":[
+    "CUSTOMER"
+  ],
+  "pictureUrl":null,
+  "cart":[
+    {
+      "id":"033fbc78",
+      "product":{
+        "id":"64832efa7031ba613d493e7e",
+        "name":"Infinix Hot 30 6.78\" 128gb Rom 8gb Ram 5000mah Android 13 Mobile Smartphone",
+        "productUrl":"https://kg-s3-assets.s3.amazonaws.com/subfolder/5e2dd62a-c108-4241-aabe-f66ba884652c.jpeg",
+        "productColors":[
+          {
+            "color":{
+              "color":"black",
+              "colorCode":"#000000"
+            },
+            "productPriceDetails":[
+              {
+                "id":"1676a067-2d7d-460f-aad7-50a21b4b6f0e",
+                "quantity":"17",
+                "price":105600,
+                "ramSize":"8GB",
+                "storage":"128GB",
+                "sku":"KG-014837760",
+                "discount":0.0
+              }
+            ]
+          },
+          {
+            "color":{
+              "color":"white",
+              "colorCode":"#FFFFFF"
+            },
+            "productPriceDetails":[
+              {
+                "id":"3dbeedb6-eff5-4350-a823-becae1dd266d",
+                "quantity":"20",
+                "price":105600,
+                "ramSize":"8GB",
+                "storage":"128GB",
+                "sku":"KG-029675520",
+                "discount":0.0
+              }
+            ]
+          }
+        ],
+        "productViews":[
+          {
+            "productUrl":"https://kg-s3-assets.s3.amazonaws.com/subfolder/5e2dd62a-c108-4241-aabe-f66ba884652c.jpeg",
+            "colorCode":"#FFFFFF"
+          },
+          {
+            "productUrl":"https://kg-s3-assets.s3.amazonaws.com/subfolder/18e98aa9-76e9-4705-a4b1-7cc710ac538a.jpeg",
+            "colorCode":"#000000"
+          },
+          {
+            "productUrl":"https://kg-s3-assets.s3.amazonaws.com/subfolder/0617ab52-e36a-4076-8ec1-1d7bee869ab8.jpeg",
+            "colorCode":null
+          },
+          {
+            "productUrl":"https://kg-s3-assets.s3.amazonaws.com/subfolder/553a576d-3660-4d37-aeb8-e40de4c27419.jpeg",
+            "colorCode":null
+          }
+        ],
+        "specifications":[
+          {
+            "name":"Brand",
+            "option":"Infinix"
+          },
+          {
+            "name":"Condition",
+            "option":"New"
+          },
+          {
+            "name":"Battery Capacity",
+            "option":"5000mah"
+          },
+          {
+            "name":"Screen type",
+            "option":"IPS-LCD"
+          },
+          {
+            "name":"Warranty",
+            "option":"6 months"
+          },
+          {
+            "name":"Battery type",
+            "option":"Li-poly"
+          },
+          {
+            "name":"Material",
+            "option":"Glass"
+          },
+          {
+            "name":"Bluetooth enabled",
+            "option":"yes"
+          },
+          {
+            "name":"NFC",
+            "option":"NFC"
+          },
+          {
+            "name":"Camera type",
+            "option":"wild angle"
+          }
+        ],
+        "category":"PHONES & TABLETS",
+        "subCategory":"SMART PHONES",
+        "secondSubCategory":"INFINIX",
+        "tag":"Smart",
+        "inputTag":"SAccessory",
+        "sales":false,
+        "featured":true,
+        "kaigloSale":null,
+        "freeShipping":false,
+        "productStatus":{
+          "status":"APPROVED",
+          "updatedDate":"2024-09-18T12:04:57.026Z",
+          "approvedBy":"Chidera Eze",
+          "note":"Overall change initiated"
+        },
+        "paused":false,
+        "isDeleted":false,
+        "store":{
+          "id":"641ac90513b0b5303ae0386d",
+          "storeName":"Purch Gadget Ltd",
+          "profilePic":null,
+          "owner":null,
+          "isFollowingStore":null,
+          "createdDate":null
+        },
+        "createdDate":"2023-06-09T13:54:02.865Z",
+        "views":0,
+        "sold":0
+      },
+      "size":"",
+      "ramSize":"8GB",
+      "storage":"128GB",
+      "color":"black",
+      "price":105600,
+      "quantity":1,
+      "productUrl":"https://kg-s3-assets.s3.amazonaws.com/subfolder/5e2dd62a-c108-4241-aabe-f66ba884652c.jpeg",
+      "platform":"WEB",
+      "dateAdded":"2024-10-28T20:16:23.431"
+    }
+  ],
+  "cartItemSize":1,
+  "boughtItems":[
+    {
+      "url":"https://kg-s3-assets.s3.amazonaws.com/subfolder/6cf0b2f7-d140-4cdd-be3d-da16ad7d45cc.jpeg",
+      "productId":"638713af869e1f432997dbe7",
+      "productName":"High Quality Men Pure Leather Classic Shoes Classic Lace-up Pointed Toe Oxford Shoes",
+      "price":18000,
+      "quantity":"1",
+      "color":"black",
+      "size":"44",
+      "shippingCost":null,
+      "totalAmount":18000,
+      "category":"MEN'S FASHION",
+      "subCategory":"SHOES",
+      "secSubCategory":"CORPORATE SHOES"
+    }
+  ],
+  "wishListItems":[
+    {
+      "productId":"64832efa7031ba613d493e7e",
+      "productImage":"https://kg-s3-assets.s3.amazonaws.com/subfolder/5e2dd62a-c108-4241-aabe-f66ba884652c.jpeg",
+      "name":"Infinix Hot 30 6.78\" 128gb Rom 8gb Ram 5000mah Android 13 Mobile Smartphone",
+      "price":"105600",
+      "category":null,
+      "dateAdded":"2024-09-04T16:21:06.451"
+    },
+    {
+      "productId":"645a53a8b85b07257222e1dc",
+      "productImage":"https://kg-s3-assets.s3.amazonaws.com/subfolder/826a6197-12e8-4d17-a804-9ff9f2f39237.jpeg",
+      "name":"Living Traveling Share Bagpack",
+      "price":"4000",
+      "category":null,
+      "dateAdded":"2024-09-04T16:21:14.834"
+    }
+  ],
+  "newUser":false,
+  "receivedDailyReward":false,
+  "phone":"+2348103720628",
+  "currentOtp":null,
+  "provider":"local",
+  "createdDate":"2024-09-01T21:54:56.733Z",
+  "updatedDate":"2024-10-30T11:57:25.951Z",
+  "year":2024,
+  "month":9,
+  "week":36,
+  "day":1,
+  "lastLoggedIn":"2024-10-30T11:57:25.951Z",
+  "firebaseToken":null,
+  "emailCountDown":2,
+  "platform":"WEB",
+  "role":null,
+  "active":true,
+  "fullName":"Eze Chidera"
+}
