@@ -12,6 +12,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import MenuSquare from "@/public/images/menu-square.svg";
+import Placeholder from "@/public/images/product-image-placeholder.png";
 
 const getSubCategories = (category: CategoryView) => {
   const subCategories = category?.category?.map((category) => category);
@@ -135,7 +136,7 @@ const MegaMenu = () => {
                   key={category.name}
                 >
                   <Image
-                    src={category?.productUrl as string}
+                    src={(category?.productUrl as string) || Placeholder}
                     alt={category?.name}
                     width={72}
                     height={72}

@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useSearchProducts } from "@/hooks/queries/products/searchProducts";
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
 import Search from "@/public/images/search.svg";
 import Loader from "../Loader";
 import Link from "next/link";
@@ -14,6 +14,7 @@ import { debounce } from "lodash";
 import { v4 as uuidv4 } from "uuid";
 import OrderBox from "@/public/images/empty-state-order-box.svg";
 import { gtmSearch } from "@/lib/gtm";
+import { useRouter } from "next/navigation";
 
 const GlobalSearch = ({
   customTopClassname,
@@ -27,6 +28,7 @@ const GlobalSearch = ({
     Array<{ id: string; term: string }>
   >([]);
   const resultsRef = useRef<HTMLDivElement>(null);
+  const router = useRouter();
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -72,6 +74,13 @@ const GlobalSearch = ({
 
   const debouncedHandleSearch = debounce(() => handleSearch(searchTerm), 2000);
 
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    console.log(searchTerm.trim());
+    if (searchTerm.trim() !== "")
+      router.push(`/product/search?searchTerm=${searchTerm}`);
+  };
+
   useEffect(() => {
     debouncedHandleSearch();
     return () => {
@@ -91,8 +100,8 @@ const GlobalSearch = ({
   };
 
   return (
-    <div className="w-full relative">
-      <div className="relative flex items-center w-full">
+    <div onSubmit={handleSubmit} className="w-full relative">
+      <form className="relative flex items-center w-full">
         <Input
           className="h-12 px-6 text-sm rounded-full"
           placeholder="Search for products"
@@ -100,6 +109,8 @@ const GlobalSearch = ({
           onChange={handleInputChange}
         />
         <Button
+          onClick={handleSubmit}
+          type="submit"
           variant="accent"
           className="absolute w-8 h-8 p-0 rounded-full right-2"
         >
@@ -111,7 +122,7 @@ const GlobalSearch = ({
             height={16}
           />
         </Button>
-      </div>
+      </form>
 
       {isResultsVisible && (
         <div
