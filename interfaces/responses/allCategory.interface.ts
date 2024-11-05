@@ -2,6 +2,7 @@ export interface Category {
   name: string;
   productUrl?: string;
   productCount: number;
+  parentUrl?: string;
   category: Category[];
 }
 
