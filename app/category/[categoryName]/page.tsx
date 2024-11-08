@@ -181,7 +181,7 @@ const Category = ({ params }: { params: { categoryName: string } }) => {
                             priority
                         />
                         <Image
-                            src={MobileCategoryBanner}
+                            src={desktopCategoryBanner}
                             alt="mobile category banner"
                             className="w-full h-full object-cover object-center lg:hidden"
                             fill
