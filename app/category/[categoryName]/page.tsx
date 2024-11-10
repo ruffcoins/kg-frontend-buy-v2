@@ -2,8 +2,18 @@ import InnerPageLayout from "@/components/layouts/InnerPageLayout";
 import Loader from "@/components/shared/Loader";
 import dynamic from "next/dynamic";
 import Image from "next/image";
-import DesktopCategoryBanner from "@/public/images/women-banner.svg";
+// import desktopCategoryBanner from "@/public/images/women-banner.svg";
 import MobileCategoryBanner from "@/public/images/category-banner.png";
+
+// Banner Images
+import MenBanner from "@/public/images/categories/categories_banners/Men.jpg";
+import WomenBanner from "@/public/images/categories/categories_banners/Women.jpg";
+import HomeAndGardenBanner from "@/public/images/categories/categories_banners/Home&Graden.jpg";
+import PhonesBanner from "@/public/images/categories/categories_banners/Phones&Tablets.jpg";
+import ElectronicsBanner from "@/public/images/categories/categories_banners/Electronics.jpg";
+import OfficeBanner from "@/public/images/categories/categories_banners/Office&Schools.jpg";
+import GroceriesBanner from "@/public/images/categories/categories_banners/Groceries&Drinks.jpg";
+import ChildrenBanner from "@/public/images/categories/categories_banners/Children&Toy.jpg";
 
 import { IProductDetailResponse } from "@/interfaces/responses/product.interface";
 import { postRequest } from "@/utils/apiCaller";
@@ -138,8 +148,37 @@ const SubCategoriesList = dynamic(
   },
 );
 
+// const Banner = dynamic(() =>  import("@/components/category/SelectedForYou"), {
+//     ssr: false,
+//     loading: () => (
+//         <div className="flex justify-center items-center h-[200px] w-screen">
+//             <Loader />
+//         </div>
+//     ),
+// });
+
 const Category = ({ params }: { params: { categoryName: string } }) => {
   const { categoryName } = params;
+
+  let desktopCategoryBanner;
+  let categoryNameLowerCase = categoryName.toLowerCase();
+
+  // Set Category banner
+  if (categoryNameLowerCase.includes("women"))
+    desktopCategoryBanner = WomenBanner;
+  else if (categoryNameLowerCase.includes("men"))
+    desktopCategoryBanner = MenBanner;
+  else if (categoryNameLowerCase.includes("home"))
+    desktopCategoryBanner = HomeAndGardenBanner;
+  else if (categoryNameLowerCase.includes("electronics"))
+    desktopCategoryBanner = ElectronicsBanner;
+  else if (categoryNameLowerCase.includes("office"))
+    desktopCategoryBanner = OfficeBanner;
+  else if (categoryNameLowerCase.includes("phones"))
+    desktopCategoryBanner = PhonesBanner;
+  else if (categoryNameLowerCase.includes("children"))
+    desktopCategoryBanner = ChildrenBanner;
+  else desktopCategoryBanner = GroceriesBanner;
 
   return (
     <InnerPageLayout>
@@ -147,7 +186,7 @@ const Category = ({ params }: { params: { categoryName: string } }) => {
         <div className="lg:mx-8 rounded-lg space-y-6 lg:space-y-10 flex flex-col">
           <div className="border h-[200px] lg:h-[280px] relative">
             <Image
-              src={DesktopCategoryBanner}
+              src={desktopCategoryBanner}
               alt="desktop category banner"
               className="w-full h-full object-cover object-center hidden lg:block rounded-lg"
               fill
@@ -155,7 +194,7 @@ const Category = ({ params }: { params: { categoryName: string } }) => {
               priority
             />
             <Image
-              src={MobileCategoryBanner}
+              src={desktopCategoryBanner}
               alt="mobile category banner"
               className="w-full h-full object-cover object-center lg:hidden"
               fill

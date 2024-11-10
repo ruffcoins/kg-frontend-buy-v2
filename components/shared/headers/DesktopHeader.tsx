@@ -85,14 +85,16 @@ const DesktopHeader = ({ showCallToOrder }: { showCallToOrder?: boolean }) => {
 
           {/* Larger Screens Call To Order CTA */}
           {showCallToOrder && (
-            <div className="xl:flex hidden items-center space-x-2">
+            <div className="xl:flex hidden items-center space-x-1">
               <div className="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer bg-kaiglo_grey-100">
                 <Image src={Phone} alt="phone icon" className="" />
               </div>
 
               <div className="flex-col">
-                <p className="text-sm font-bold">Call to place order</p>
-                <p className="text-sm text-kaiglo_attention-base">
+                <p className="text-[13px] 2xl:text-sm font-bold">
+                  Call to place order
+                </p>
+                <p className="text-[13px] 2xl:text-sm text-kaiglo_attention-base">
                   +234 915 449 1603
                 </p>
               </div>

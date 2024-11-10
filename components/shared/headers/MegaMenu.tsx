@@ -30,10 +30,13 @@ const MegaMenu = () => {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const { allCategories } = useGetAllCategories();
-  const memoizedCategories = useMemo(
-    () => allCategories?.slice(0, window.innerWidth < 1280 ? 5 : 6) ?? [],
-    [allCategories],
-  );
+  const memoizedCategories = useMemo(() => {
+    return (
+      allCategories
+        ?.filter((category) => category.productCount > 0) // remove categories without products
+        ?.slice(0, window.innerWidth < 1280 ? 5 : 6) ?? []
+    );
+  }, [allCategories]);
 
   const initialTab = memoizedCategories?.[0]?.id || "";
   const [currentTab, setCurrentTab] = useState<string | undefined>(initialTab);
@@ -212,4 +215,5 @@ const MegaMenu = () => {
     </div>
   );
 };
+
 export default MegaMenu;
