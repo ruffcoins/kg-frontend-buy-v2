@@ -1,5 +1,6 @@
 import Loader from "@/components/shared/Loader";
 import dynamic from "next/dynamic";
+import { useEffect } from "react";
 
 const SearchPage = dynamic(() => import("@/components/product/SearchPage"), {
   ssr: false,

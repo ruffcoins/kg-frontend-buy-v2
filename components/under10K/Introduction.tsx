@@ -16,7 +16,7 @@ import { useRouter } from "next/navigation";
 import { ChevronDownIcon } from "@radix-ui/react-icons";
 import { cn, sortOptions } from "@/lib/utils";
 import { useProductCategoryDetail } from "@/hooks/queries/products/productCategoryDetail";
-import FilterComponent0 from "../shared/FilterComponent0";
+import Under10KFilterComponent from "../shared/FilterComponentUnder10K";
 
 const Introduction = () => {
   const searchTerm = "";
@@ -27,12 +27,6 @@ const Introduction = () => {
   const [minPrice, setMinPrice] = useState(100);
   const [maxPrice, setMaxPrice] = useState(9999);
   const [category, setCategory] = useState("");
-  const [brands, setBrands] = useState<string[]>([]);
-  const [productColorNames, setProductColorNames] = useState<string[]>([]);
-  const [productSales, setProductSales] = useState<string[]>([]);
-  const [productShipping, setProductShipping] = useState<string[]>([]);
-  const [productSizes, setProductSizes] = useState<string[]>([]);
-  const [kaigloSale, setKaigloSale] = useState("");
   const [name, setName] = useState(searchTerm);
   const [sort, setSort] = useState("Sort By");
   const [categoryToFilterBy, setCategoryToFilterBy] = useState("");
@@ -41,12 +35,6 @@ const Introduction = () => {
     minPrice,
     maxPrice,
     category,
-    brands,
-    productColorNames,
-    productSales,
-    productShipping,
-    productSizes,
-    kaigloSale,
     name,
     sort,
   };
@@ -70,20 +58,7 @@ const Introduction = () => {
 
   useEffect(() => {
     refetchFilterProducts();
-  }, [
-    minPrice,
-    maxPrice,
-    category,
-    brands,
-    productColorNames,
-    productSales,
-    productShipping,
-    productSizes,
-    name,
-    sort,
-    kaigloSale,
-    refetchFilterProducts,
-  ]);
+  }, [minPrice, maxPrice, category, name, sort, refetchFilterProducts]);
 
   if (status === "error") {
     return (
@@ -105,7 +80,7 @@ const Introduction = () => {
 
   const breadcrumbItems = [
     { label: "Home", href: "/" },
-    { label: "Below ₦10k" },
+    { label: "Under ₦10k" },
   ];
 
   const router = useRouter();
@@ -115,19 +90,19 @@ const Introduction = () => {
   };
 
   return (
-    <div className="hidden lg:block space-y-4 lg:mt-40">
-      <div className="h-[72px] bg-white rounded-lg p-4 mx-8 flex items-center justify-between">
-        <div className="flex items-center space-x-6">
+    <div className="lg:mx-8 rounded-lg space-y-4 lg:mt-10 lg:mb-4 mt-16">
+      <div className="h-[72px] bg-white rounded-lg lg:p-4 p-0 border flex mx-1 lg:mx-0  items-center justify-between">
+        <div className="flex items-center lg:space-x-6">
           <Image
             src={ArrowLeft}
             alt="arrow left"
-            className="w-6 h-6 cursor-pointer"
+            className="w-6 h-6 cursor-pointer hidden lg:block"
             onClick={() => router.push("/")}
           />
           <Breadcrumb items={breadcrumbItems} />
         </div>
 
-        <div className="flex items-center space-x-4">
+        <div className="lg:flex items-center space-x-4 relative hidden">
           <p className="text-sm text-kaiglo_grey-placeholder font-medium">
             {totalProducts} products found
           </p>
@@ -165,38 +140,11 @@ const Introduction = () => {
           </>
         </div>
       </div>
-      <div className="grid grid-cols-12 mx-8 gap-x-5">
-        <div className="h-20 col-span-3 rounded-lg">
-          <FilterComponent0
-            min={minPrice}
-            max={maxPrice}
-            products={filterProducts}
+      <div className="grid lg:grid-cols-12 grid-cols-2 lg:gap-x-5">
+        <div className="h-20 col-span-3 rounded-lg lg:block hidden">
+          <Under10KFilterComponent
             category={category}
-            brand={brands[0]}
-            brands={productCategoryDetail?.brands || []}
-            productColorName={productColorNames[0]}
-            productColorNames={
-              productCategoryDetail?.productColorCode.map(
-                (color) => color.color,
-              ) || []
-            }
-            productSize={productSizes[0]}
-            productSizes={[]}
-            productShipping={productShipping[0]}
-            productSale={productSales[0]}
-            productSales={productCategoryDetail?.sales || []}
             setCategory={setCategory}
-            setMinPrice={setMinPrice}
-            setMaxPrice={setMaxPrice}
-            setBrands={setBrands}
-            setProductColorNames={setProductColorNames}
-            setProductSizes={setProductSizes}
-            setProductShipping={setProductShipping}
-            setProductSales={setProductSales}
-            name={name}
-            setName={setName}
-            setSort={setSort}
-            setKaigloSale={setKaigloSale}
           />
         </div>
         {status === "loading" || isRefetching ? (
@@ -267,11 +215,6 @@ const Introduction = () => {
                 setMinPrice(0);
                 setMaxPrice(0);
                 setCategory("");
-                setBrands([]);
-                setProductColorNames([]);
-                setProductSizes([]);
-                setProductShipping([]);
-                setProductSales([]);
                 setName(searchTerm);
                 refetchFilterProducts();
               }}

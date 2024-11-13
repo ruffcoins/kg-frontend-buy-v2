@@ -3,7 +3,7 @@ import Loader from "@/components/shared/Loader";
 import dynamic from "next/dynamic";
 
 const Introduction = dynamic(
-  () => import("@/components/below10k/Introduction"),
+  () => import("@/components/under10K/Introduction"),
   {
     ssr: false,
     loading: () => (

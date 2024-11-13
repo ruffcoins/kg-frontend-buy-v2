@@ -3,7 +3,7 @@ import { IPaginatedProductResponse } from "@/interfaces/responses/product.interf
 import { postRequest } from "@/utils/apiCaller";
 import { useInfiniteQuery } from "@tanstack/react-query";
 
-export const useBelow10KProducts = (filters: ProductFilters) => {
+export const useUnder10KProducts = (filters: ProductFilters) => {
   const {
     data,
     fetchNextPage,
@@ -16,7 +16,7 @@ export const useBelow10KProducts = (filters: ProductFilters) => {
     isRefetching,
     isFetching,
   } = useInfiniteQuery<IPaginatedProductResponse, Error>(
-    ["below10K-products", filters],
+    ["under10K-products", filters],
     ({ pageParam = 0 }) =>
       postRequest({
         url: `product/filter/${pageParam}`,
@@ -34,12 +34,11 @@ export const useBelow10KProducts = (filters: ProductFilters) => {
     },
   );
 
-  const below10KProducts: IProduct[] =
+  const under10KProducts: IProduct[] =
     data?.pages.flatMap((page) => page.content) ?? [];
-  console.log(below10KProducts);
 
   return {
-    below10KProducts,
+    under10KProducts,
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
@@ -47,8 +46,8 @@ export const useBelow10KProducts = (filters: ProductFilters) => {
     isRefetching,
     status,
     error,
-    refetchbelow10KProducts: refetch,
-    removebelow10KProducts: remove,
+    refetchUnder10KProducts: refetch,
+    removeUnderKProducts: remove,
     totalProducts: data?.pages[data.pages.length - 1]?.totalElements,
     currentPage: data?.pages[data.pages.length - 1]?.number as number,
     totalPages: data?.pages[data.pages.length - 1]?.totalPages,

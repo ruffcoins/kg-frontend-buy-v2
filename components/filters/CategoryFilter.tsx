@@ -7,17 +7,19 @@ interface Category {
 }
 
 interface CategoryFilterProps {
+  isOpened?: boolean;
   categories: Category[];
   category: string;
   setCategory: Dispatch<SetStateAction<string>>;
 }
 
 const CategoryFilter: React.FC<CategoryFilterProps> = ({
+  isOpened,
   categories,
   category,
   setCategory,
 }) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(isOpened || false);
 
   const toggleDropdown = () => setIsOpen(!isOpen);
 

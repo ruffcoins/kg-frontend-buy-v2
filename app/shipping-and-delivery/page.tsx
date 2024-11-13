@@ -2,8 +2,15 @@ import { ArrowRightIcon } from "@radix-ui/react-icons";
 import Image from "next/image";
 import Link from "next/link";
 import HomepageLayout from "@/components/layouts/Homepage/HomepageLayout";
-import DeliveryMobile from "@/public/images/delivery-mobile.jpg";
-import Delivery from "@/public/images/delivery-web.jpg";
+import DeliveryMobile from "@/public/images/shipping_and_delivery/delivery-mobile.jpg";
+import Delivery from "@/public/images/shipping_and_delivery/delivery-web.jpg";
+import SpeedDesktop from "@/public/images/shipping_and_delivery/speed_delivery_desktop.png";
+import SpeedMobile from "@/public/images/shipping_and_delivery/speed_delivery_mobile.png";
+import OrderTrackingDesktop from "@/public/images/shipping_and_delivery/order_tracking_desktop.png";
+import OrderTrackingMobile from "@/public/images/shipping_and_delivery/order_tracking_mobile.png";
+import Card from "@/public/images/shipping_and_delivery/card.1 1.svg";
+import SafeDelivery from "@/public/images/shipping_and_delivery/safe-delivery-01.svg";
+import Money from "@/public/images/shipping_and_delivery/moneys.1 1.png";
 import CloserMarketsMobile from "@/public/images/closer-markets-mobile.svg";
 import CloserMarkets from "@/public/images/closer-markets.svg";
 import { PageLinks } from "@/constants/links";
@@ -36,8 +43,23 @@ const ShippingAndDelivery = () => {
 
           <div className="p-4 grid gap-12 max-w-[1000px] m-auto">
             <div className="grid md:grid-cols-2 gap-6">
-              <div className="md:row-span-2 w-full h-[250px] bg-kaiglo_grey-disabled rounded-xl"></div>
-              <div className="grid gap-6 md:gap-3">
+              <figure>
+                <Image
+                  src={SpeedMobile}
+                  alt="Speed and reliability image"
+                  width={353}
+                  height={250}
+                  className="md:hidden w-full h-[250px] rounded-xl"
+                />
+                <Image
+                  src={SpeedDesktop}
+                  alt="Speed and reliability image"
+                  width={500}
+                  height={500}
+                  className="hidden md:block md:row-span-2 rounded-xl"
+                />
+              </figure>
+              <div className="grid md:items-start md:flex md:flex-col gap-6 md:gap-3">
                 <h2 className="bg-kaiglo_success-100 font-medium px-6 md:px-3 py-4 md:py-2 rounded-full justify-self-start">
                   Speed and Reliability
                 </h2>
@@ -51,7 +73,7 @@ const ShippingAndDelivery = () => {
                 </p>
                 <Link
                   href={"/"}
-                  className="text-kaiglo_brand-base flex items-center gap-2 font-medium"
+                  className="text-kaiglo_brand-base flex items-center gap-2 font-medium lg:mt-10"
                 >
                   Start Shopping
                   <ArrowRightIcon className="text-kaiglo_brand-base w-6 h-6 font-medium" />
@@ -59,8 +81,24 @@ const ShippingAndDelivery = () => {
               </div>
             </div>
             <div className="grid md:grid-cols-2 gap-6">
-              <div className="md:row-span-2 md:col-start-2 w-full h-[250px] bg-kaiglo_grey-disabled rounded-xl"></div>
-              <div className="grid gap-6 md:gap-3">
+              {/* <div className="md:row-span-2 md:col-start-2 w-full h-[250px] bg-kaiglo_grey-disabled rounded-xl"></div> */}
+              <figure className="md:col-start-2">
+                <Image
+                  src={OrderTrackingMobile}
+                  alt="Speed and reliability image"
+                  width={353}
+                  height={250}
+                  className="md:hidden w-full h-[250px] rounded-xl"
+                />
+                <Image
+                  src={OrderTrackingDesktop}
+                  alt="Speed and reliability image"
+                  width={500}
+                  height={500}
+                  className="hidden md:block rounded-xl"
+                />
+              </figure>
+              <div className="grid md:col-span-1 md:row-start-1  md:items-start md:flex md:flex-col gap-6 md:gap-3">
                 <h2 className="bg-kaiglo_success-100 font-medium px-6 md:px-3 py-4 md:py-2 rounded-full justify-self-start">
                   Real-time Order Tracking
                 </h2>
@@ -74,7 +112,7 @@ const ShippingAndDelivery = () => {
                 </p>
                 <Link
                   href={"/"}
-                  className="text-kaiglo_brand-base flex items-center gap-2 font-medium"
+                  className="text-kaiglo_brand-base flex items-center gap-2 font-medium lg:mt-10"
                 >
                   Track My Order
                   <ArrowRightIcon className="text-kaiglo_brand-base w-6 h-6 font-medium" />
@@ -89,7 +127,9 @@ const ShippingAndDelivery = () => {
             </h2>
             <div className="grid md:grid-cols-3 gap-4 mt-6 lg:mx-8">
               <section className="flex flex-col gap-4 md:gap-2 border border-kaiglo_grey-disabled bg-kaiglo_grey-50 md:bg-white py-5 px-4 rounded-lg">
-                <div className="bg-kaiglo_grey-50 font-bold flex items-center justify-center w-12 h-12 border border-kaiglo_grey-disabled rounded-lg"></div>
+                <figure className="bg-kaiglo_grey-50 font-bold flex items-center justify-center w-12 h-12 border border-kaiglo_grey-disabled rounded-lg">
+                  <Image src={Card} alt="Card icon" width={32} height={32} />
+                </figure>
 
                 <h2 className="font-bold text-base">Payment with Card</h2>
                 <p className="text-kaiglo_grey-base">
@@ -98,7 +138,14 @@ const ShippingAndDelivery = () => {
                 </p>
               </section>
               <section className="flex flex-col gap-4 md:gap-2 border border-kaiglo_grey-disabled bg-kaiglo_grey-50 md:bg-white py-5 px-4 rounded-lg">
-                <div className="bg-kaiglo_grey-50 font-bold flex items-center justify-center w-12 h-12 border border-kaiglo_grey-disabled rounded-lg"></div>
+                <figure className="bg-kaiglo_grey-50 font-bold flex items-center justify-center w-12 h-12 border border-kaiglo_grey-disabled rounded-lg">
+                  <Image
+                    src={SafeDelivery}
+                    alt="Saft delivery icon"
+                    width={32}
+                    height={32}
+                  />
+                </figure>
                 <h2 className="font-bold text-base">Payment on Delivery</h2>
                 <p className="text-kaiglo_grey-base">
                   We promise to always provide our users with exceptional deals
@@ -107,7 +154,9 @@ const ShippingAndDelivery = () => {
                 </p>
               </section>
               <section className="flex flex-col gap-4 md:gap-2 border border-kaiglo_grey-disabled bg-kaiglo_grey-50 md:bg-white py-5 px-4 rounded-lg">
-                <div className="bg-kaiglo_grey-50 font-bold flex items-center justify-center w-12 h-12 border border-kaiglo_grey-disabled rounded-lg"></div>
+                <figure className="bg-kaiglo_grey-50 font-bold flex items-center justify-center w-12 h-12 border border-kaiglo_grey-disabled rounded-lg">
+                  <Image src={Money} alt="Money icon" width={32} height={32} />
+                </figure>
                 <h2 className="font-bold text-base">
                   Pay with Shopping Balance
                 </h2>

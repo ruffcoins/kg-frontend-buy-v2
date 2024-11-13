@@ -67,7 +67,7 @@ const ImageGallery = ({
           </div>
         </div>
 
-        <div className="absolute flex items-end justify-between xl:bottom-8 lg:bottom-4 bottom-2 xl:left-8 lg:left-4 left-2 xl:right-8 lg:right-4 right-2">
+        <div className="absolute flex items-center justify-between xl:bottom-8 lg:bottom-4 bottom-2 xl:left-8 lg:left-4 left-2 xl:right-8 lg:right-4 right-2">
           <ShareButton
             link={`${process.env.NEXT_PUBLIC_FRONTEND_URL}product/${createSlug(name)}/${id}`}
           />
@@ -81,14 +81,18 @@ const ImageGallery = ({
             ))}
           </div>
 
-          <AddToWishlistButton
-            isOnMyWishList={isOnMyWishList}
-            setIsOnMyWishList={setIsOnMyWishList}
-            id={id}
-            name={name}
-            price={price}
-            imageUrl={images[0] as string}
-          />
+          {user ? (
+            <AddToWishlistButton
+              isOnMyWishList={isOnMyWishList}
+              setIsOnMyWishList={setIsOnMyWishList}
+              id={id}
+              name={name}
+              price={price}
+              imageUrl={images[0] as string}
+            />
+          ) : (
+            <div></div>
+          )}
         </div>
       </div>
 

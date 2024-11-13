@@ -76,9 +76,12 @@ const GlobalSearch = ({
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    console.log(searchTerm.trim());
-    if (searchTerm.trim() !== "")
-      router.push(`/product/search?searchTerm=${searchTerm}`);
+    const trimmedSearchTerm = searchTerm.trim();
+    if (trimmedSearchTerm !== "") {
+      setSearchTerm(trimmedSearchTerm);
+      setIsResultsVisible(false);
+      router.push(`/product/search?searchTerm=${trimmedSearchTerm}`);
+    }
   };
 
   useEffect(() => {
@@ -100,8 +103,11 @@ const GlobalSearch = ({
   };
 
   return (
-    <div onSubmit={handleSubmit} className="w-full relative">
-      <form className="relative flex items-center w-full">
+    <div className="w-full relative">
+      <form
+        onSubmit={handleSubmit}
+        className="relative flex items-center w-full"
+      >
         <Input
           className="h-12 px-6 text-sm rounded-full"
           placeholder="Search for products"
@@ -109,7 +115,6 @@ const GlobalSearch = ({
           onChange={handleInputChange}
         />
         <Button
-          onClick={handleSubmit}
           type="submit"
           variant="accent"
           className="absolute w-8 h-8 p-0 rounded-full right-2"

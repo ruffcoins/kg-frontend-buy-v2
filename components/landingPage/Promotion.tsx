@@ -4,6 +4,7 @@ import Image from "next/image";
 import useHomeContentBanner from "@/hooks/queries/homePage/getHomeContentBanner";
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import CountdownTimer from "../shared/CountdownTimer";
 
 const PromotionGrid = () => {
   const { homeContentBanner, fetchingHomeContentBanner } =
@@ -80,26 +81,46 @@ const PromotionGrid = () => {
 
       {homeContentBanner ? (
         homeContentBanner.adBanners.length > 0 ? (
-          <div className="hidden lg:col-span-4 relative h-[460px] rounded-lg overflow-hidden lg:flex flex-col space-y-5">
-            <div className="relative rounded-lg h-full overflow-hidden">
-              <Image
-                src={homeContentBanner?.adBanners[0]?.image as string}
-                alt={"Promotion banner"}
-                fill
-                className="object-cover"
-              />
-            </div>
-            <div className="relative rounded-lg h-full overflow-hidden">
-              <Image
-                src={homeContentBanner?.adBanners[1]?.image as string}
-                alt={"Promotion banner"}
-                fill
-                className="object-cover"
-              />
-            </div>
+          <div className="hidden lg:col-span-4 relative h-[460px] rounded-lg overflow-hidden lg:grid lg:grid-rows-2 space-y-5">
+            {homeContentBanner?.adBanners.map((ad, index) => {
+              while (index <= 1) {
+                if (ad.url)
+                  return (
+                    <div
+                      key={index}
+                      className="relative rounded-lg h-full overflow-hidden"
+                    >
+                      <Link href={ad.url as string}>
+                        <Image
+                          src={ad.image as string}
+                          alt={"Promotion banner"}
+                          fill
+                          className="object-cover"
+                        />
+                      </Link>
+                    </div>
+                  );
+                else
+                  return (
+                    <div
+                      key={index}
+                      className="relative rounded-lg h-full overflow-hidden"
+                    >
+                      <Image
+                        src={ad.image as string}
+                        alt={"Promotion banner"}
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+                  );
+              }
+            })}
           </div>
         ) : null
       ) : null}
+
+      {/* <CountdownTimer endDate={salesPromotion?.endDate as string} /> */}
     </div>
   );
 };

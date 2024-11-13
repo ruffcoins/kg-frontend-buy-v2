@@ -55,6 +55,8 @@ const SearchPage = () => {
     productSizes,
     kaigloSale,
     name,
+    // searchTerm
+
     // subCategory,
     // secondSubCategory,
     // ramSizes,
@@ -80,6 +82,7 @@ const SearchPage = () => {
   }, [inView, fetchNextPage, hasNextPage]);
 
   useEffect(() => {
+    setName(searchTerm);
     refetchFilterProducts();
   }, [
     minPrice,
@@ -94,6 +97,7 @@ const SearchPage = () => {
     sort,
     kaigloSale,
     refetchFilterProducts,
+    searchTerm,
   ]);
 
   if (status === "error") {
