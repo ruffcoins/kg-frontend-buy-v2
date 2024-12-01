@@ -164,22 +164,24 @@ export const transformCartItemToOrderItem = (
   };
 };
 
-export const getKlumpPayloadItems = (transformedCartItems: CheckoutOrderItem[]) => {
-  return transformedCartItems.map(item => {
+export const getKlumpPayloadItems = (
+  transformedCartItems: CheckoutOrderItem[],
+) => {
+  return transformedCartItems.map((item) => {
     return {
       name: item.orderLines[0].orderItem.productName,
       unit_price: item.orderLines[0].orderItem.price,
       quantity: parseInt(item.orderLines[0].orderItem.quantity),
-      image_url: item.orderLines[0].orderItem.url
-    }
-  })
-}
+      image_url: item.orderLines[0].orderItem.url,
+    };
+  });
+};
 
 export const getPhoneNumWithoutCountryCode = (phoneNumber: string) => {
   if (phoneNumber.startsWith("+234")) {
     return phoneNumber.replace("+234", "0");
   }
-}
+};
 
 export const getSelectedProductPriceDetail = (
   colors: ProductColor[],
