@@ -1,5 +1,12 @@
 import { ProductPriceDetail } from "./product.interface";
 
+export interface KlumpItem {
+  name: string;
+  unit_price: number;
+  quantity: number;
+  image_url?: string;
+}
+
 export interface CheckoutOrderItem {
   orderLines: Array<{
     address: string;
