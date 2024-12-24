@@ -1,1 +1,1 @@
-declare module "klump-react"
+declare module "klump-react";
