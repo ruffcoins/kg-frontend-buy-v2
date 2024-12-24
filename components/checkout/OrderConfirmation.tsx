@@ -651,6 +651,7 @@ const OrderConfirmation = () => {
           <DialogContent className="flex items-center justify-center lg:w-[552px]">
             <div className="flex flex-col items-center space-y-4">
               <Loader />
+
               <p className="text-lg font-medium">Processing your order...</p>
             </div>
           </DialogContent>

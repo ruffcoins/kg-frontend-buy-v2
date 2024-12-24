@@ -164,6 +164,25 @@ export const transformCartItemToOrderItem = (
   };
 };
 
+export const getKlumpPayloadItems = (
+  transformedCartItems: CheckoutOrderItem[],
+) => {
+  return transformedCartItems.map((item) => {
+    return {
+      name: item.orderLines[0].orderItem.productName,
+      unit_price: item.orderLines[0].orderItem.price,
+      quantity: parseInt(item.orderLines[0].orderItem.quantity),
+      image_url: item.orderLines[0].orderItem.url,
+    };
+  });
+};
+
+export const getPhoneNumWithoutCountryCode = (phoneNumber: string) => {
+  if (phoneNumber.startsWith("+234")) {
+    return phoneNumber.replace("+234", "0");
+  }
+};
+
 export const getSelectedProductPriceDetail = (
   colors: ProductColor[],
   selectedColor: string,
@@ -231,12 +250,10 @@ export const sortOptions = [
 export const productSpecificationsAreValid = (
   specifications: Specification[] | undefined,
 ): boolean => {
-  console.log(specifications);
   if (specifications === undefined) return false;
   // Loop through each specification object
   for (const spec of specifications) {
     // If the current specification's `option` is not null, return `true`
-    console.log(spec.option);
     if (spec.option != null) {
       return true;
     }

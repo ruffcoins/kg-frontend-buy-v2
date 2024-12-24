@@ -228,16 +228,18 @@ const OrderDetails = ({ orderId }: { orderId: string }) => {
                   ₦{parseFloat(order?.shippingCost as string).toLocaleString()}
                 </span>
               </p>
-              <p className="grid grid-cols-12">
-                <span className="lg:col-span-3 col-span-9 text-kaiglo_grey-base">
-                  Coupon
-                </span>
-                <span className="col-span-3 font-medium text-end lg:text-start text-kaiglo_brand-base">
-                  {order?.appliedCoupon === null
-                    ? "None"
-                    : order?.appliedCoupon.toLocaleString().toUpperCase()}
-                </span>
-              </p>
+              {order?.appliedCoupon && (
+                <p className="grid grid-cols-12">
+                  <span className="lg:col-span-3 col-span-9 text-kaiglo_grey-base">
+                    Coupon
+                  </span>
+                  <span className="col-span-3 font-medium text-end lg:text-start text-kaiglo_brand-base">
+                    {order?.appliedCoupon === null
+                      ? "None"
+                      : order?.appliedCoupon.toLocaleString().toUpperCase()}
+                  </span>
+                </p>
+              )}
 
               <hr className="lg:hidden" />
 

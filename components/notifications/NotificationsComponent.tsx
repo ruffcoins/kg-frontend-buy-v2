@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useNotifications } from "@/hooks/queries/notification/getNotifications";
 import { BellIcon, ChevronLeftIcon } from "@radix-ui/react-icons";
 import { useRouter } from "next/navigation";
+import Placeholder from "@/public/images/product-image-placeholder.png";
 
 const NotificationsComponent = () => {
   const router = useRouter();
@@ -46,22 +47,26 @@ const NotificationsComponent = () => {
                 >
                   <div className="gap-x-2 flex justify-start items-center">
                     <Image
-                      src={notification.image}
+                      src={notification.image ?? Placeholder}
                       alt={"notification image"}
                       width={100}
                       height={100}
                       className="w-14 h-14"
                     />
                     <div className="">
-                      <p className="font-bold text-sm">{notification.header}</p>
-                      <p className="text-sm">{notification.description}</p>
+                      <p className="font-bold text-sm">
+                        {notification?.header ?? "Header"}
+                      </p>
+                      <p className="text-sm">
+                        {notification?.description ?? "Description"}
+                      </p>
                     </div>
                   </div>
 
                   <div>
                     <div className="flex flex-col items-end space-y-2">
                       <p className="text-[10px]">
-                        {new Date(notification.createdDate).toLocaleTimeString(
+                        {new Date(notification?.createdDate).toLocaleTimeString(
                           "en-US",
                           { hour: "numeric", minute: "numeric", hour12: true },
                         )}

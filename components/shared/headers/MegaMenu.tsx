@@ -15,7 +15,10 @@ import MenuSquare from "@/public/images/menu-square.svg";
 import Placeholder from "@/public/images/product-image-placeholder.png";
 
 const getSubCategories = (category: CategoryView) => {
-  const subCategories = category?.category?.map((category) => category);
+  const subCategories = category?.category?.map((cat) => ({
+    ...cat,
+    parent: category.name,
+  }));
   return subCategories;
 };
 
@@ -134,9 +137,10 @@ const MegaMenu = () => {
             {currentSubCategories
               ?.filter((category) => category.category.length !== 0)
               ?.map((category) => (
-                <div
-                  className="flex flex-col items-center mb-4 cursor-pointer"
+                <Link
                   key={category.name}
+                  href={`/category/${category.parent}/${category.name}`}
+                  className="flex flex-col items-center mb-4 cursor-pointer"
                 >
                   <Image
                     src={(category?.productUrl as string) || Placeholder}
@@ -148,7 +152,7 @@ const MegaMenu = () => {
                   <p className="text-sm text-center text-kaiglo_grey-700 mt-1">
                     {capitalizeFirstLetterOfEachWord(category?.name)}
                   </p>
-                </div>
+                </Link>
               ))}
           </div>
 
