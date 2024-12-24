@@ -2,6 +2,7 @@ export interface Category {
   name: string;
   productUrl?: string;
   productCount: number;
+  parent?: string;
   parentUrl?: string;
   category: Category[];
 }
@@ -11,6 +12,7 @@ export interface CategoryView {
   name: string;
   productUrl?: string;
   productCount: number;
+  parent: string;
   category: Category[];
 }
 
