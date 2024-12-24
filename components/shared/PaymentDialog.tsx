@@ -7,7 +7,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { SetStateAction, useEffect, useState } from "react";
+import { SetStateAction, useState, Dispatch } from "react";
 import PayOnDelivery from "@/public/images/pay-on-delivery.svg";
 import PayFromWallet from "@/public/images/pay-from-wallet.svg";
 import PayFromCard from "@/public/images/pay-from-card.svg";
@@ -32,6 +32,7 @@ import { DialogDescription } from "@radix-ui/react-dialog";
 import { AbandonedOrderDTO } from "@/interfaces/orders/order.interface";
 import useAbandonedOrder from "@/hooks/mutation/order/abandonedOrder";
 import { sendGTMEvent } from "@next/third-parties/google";
+// @ts-ignore
 import { KlumpCheckout } from "klump-react";
 import { useRouter } from "next/navigation";
 import {
@@ -39,6 +40,11 @@ import {
   KlumpOnOpenOrOnLoadResponse,
   KlumpOnSuccessResponse,
 } from "@/interfaces/klump/klump.interface";
+import useGetKlumpActive from "@/hooks/queries/configuration/getKlumpActive";
+import { klumpConsts } from "@/constants/siteConfig";
+import useKlumpPublicKey from "@/hooks/queries/configuration/getKlumpPublicKey";
+import useCreateKlumpTransaction from "@/hooks/mutation/order/createKlumpTransaction";
+import { KlumpTransactionDTO } from "@/interfaces/dtos/klump.dto.interface";
 
 const PaymentDialog = ({
   open,
@@ -57,7 +63,7 @@ const PaymentDialog = ({
   appliedCoupon,
 }: {
   open: boolean;
-  setOpen: React.Dispatch<SetStateAction<boolean>>;
+  setOpen: Dispatch<SetStateAction<boolean>>;
   checkoutAmount: string;
   totalAmount: number;
   lga: string;
@@ -94,6 +100,13 @@ const PaymentDialog = ({
   const { debitWalletAsync } = useDebitWallet();
   const { createOrderAsync } = useCreateOrder();
   const { abandonedOrder } = useAbandonedOrder();
+  const { createKlumpTransaction } = useCreateKlumpTransaction();
+  const { klumpIsActive, klumpThresholdAmount } = useGetKlumpActive(
+    klumpConsts.KLUMP_CHECKOUT,
+  );
+  const { klumpPublicKey, fetchingKlumpPublicKey } = useKlumpPublicKey(
+    klumpConsts.KLUMP_PUBLIC_KEY,
+  );
   const [isClosingOrganically, setIsClosingOrganically] = useState(false);
 
   const handlePayment = async () => {
@@ -106,18 +119,12 @@ const PaymentDialog = ({
       const klumpAmount = parseInt(checkoutAmount) + parseInt(shippingAmount);
       const klumpShippingFee = parseInt(shippingAmount);
       const klumpPhoneNum = getPhoneNumWithoutCountryCode(user.phone);
-      const klumpEmail =
-        process.env.NODE_ENV === "production"
-          ? userDetails.email
-          : "sample@mail.com";
-      const klumpRedirectURL =
-        process.env.NODE_ENV === "production"
-          ? "https://kaiglo.com/app/orders"
-          : "http://localhost:3000/app/orders";
+      const klumpEmail = userDetails.email;
+      const klumpRedirectURL = `${process.env.NEXT_PUBLIC_FRONTEND_URL}app/orders`;
 
       // Generate payload for klump
       const klumpPayload = {
-        publicKey: process.env.NEXT_PUBLIC_KLUMP_PUBLIC_KEY,
+        publicKey: klumpPublicKey,
         data: {
           amount: klumpAmount,
           shipping_fee: klumpShippingFee,
@@ -132,7 +139,6 @@ const PaymentDialog = ({
           },
         },
         onSuccess: (data: KlumpOnSuccessResponse) => {
-          console.log("Klump response: ", data);
           if (data.data?.data.status === "successful") {
             const checkoutPayload = {
               checkoutPayLoad: {
@@ -154,30 +160,45 @@ const PaymentDialog = ({
                 trxref: data.data.data.data.reference,
               },
             };
-            console.log("Creating order");
+
+            const klumpTransactionPayload: Partial<KlumpTransactionDTO> = {
+              status: data.data.data.status,
+              reference: data.data.data.data.reference,
+              userId: user.id,
+              amount: klumpAmount,
+              shippingFee: klumpShippingFee,
+              currency: "NGN",
+              redirectUrl: klumpRedirectURL,
+              metaData: {
+                customerId: user.id,
+                email: user.email,
+              },
+            };
+
             createOrderAsync(checkoutPayload).then(() =>
               setOrderCreated?.(true),
             );
-            console.log("Created");
+            createKlumpTransaction(klumpTransactionPayload);
           }
         },
         onError: (data: KlumpOnErrorResponse) => {
-          console.log("html onError will be handled by the merchant");
-          console.log(data);
+          handleAbandonOrder();
         },
+
         onLoad: (data: KlumpOnOpenOrOnLoadResponse) => {
-          console.log("html onLoad will be handled by the merchant");
-          console.log(data);
+          console.log("Klump checkout loading:", data);
         },
+
         onOpen: (data: KlumpOnOpenOrOnLoadResponse) => {
-          console.log("html OnOpen will be handled by the merchant");
-          console.log(data);
+          console.log("Klump checkout opened:", data);
         },
+
         onClose: (data: KlumpOnOpenOrOnLoadResponse) => {
-          window.location.reload();
+          handleAbandonOrder();
         },
       };
 
+      // @ts-ignore
       new Klump(klumpPayload);
     }
 
@@ -262,19 +283,28 @@ const PaymentDialog = ({
             <DialogDescription />
           </DialogHeader>
           <div className="space-y-6 py-4">
-            <div
-              className={`flex space-x-4 ${selectedMethod === "klump" ? "selected" : ""}`}
-              onClick={() => setSelectedMethod("klump")}
-            >
-              <input
-                type="radio"
-                checked={selectedMethod === "klump"}
-                readOnly
-              />
-              <div className="rounded-xl px-4 py-2 border grid items-center w-full ">
-                <KlumpCheckout />
-              </div>
-            </div>
+            {/* Klump */}
+
+            {!fetchingKlumpPublicKey &&
+              klumpIsActive &&
+              klumpThresholdAmount &&
+              parseInt(checkoutAmount) >= parseInt(klumpThresholdAmount) && (
+                <div
+                  className={`flex space-x-4 ${selectedMethod === "klump" ? "selected" : ""}`}
+                  onClick={() => setSelectedMethod("klump")}
+                >
+                  <input
+                    type="radio"
+                    checked={selectedMethod === "klump"}
+                    readOnly
+                  />
+                  <div className="rounded-xl px-4 py-2 border grid items-center w-full ">
+                    <KlumpCheckout />
+                  </div>
+                </div>
+              )}
+
+            {/* Cards */}
             <div
               className={`flex space-x-4 ${selectedMethod === "cards" ? "selected" : ""}`}
               onClick={() => setSelectedMethod("cards")}
@@ -303,6 +333,7 @@ const PaymentDialog = ({
               </div>
             </div>
 
+            {/* Wallet */}
             <div
               className={`flex flex-col space-y-2 ${selectedMethod === "balance" ? "selected" : ""}`}
               onClick={() => {
@@ -368,6 +399,7 @@ const PaymentDialog = ({
               )}
             </div>
 
+            {/* Pay on delivery */}
             <div
               className={`flex space-x-4 ${selectedMethod === "pod" ? "selected" : ""}`}
               onClick={() => {

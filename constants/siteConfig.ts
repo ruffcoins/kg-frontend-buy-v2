@@ -17,3 +17,8 @@ export const siteConfig = {
   ],
   url: process.env.NEXT_PUBLIC_APP_URL,
 };
+
+export const klumpConsts = {
+  KLUMP_CHECKOUT: "KLUMP_CHECKOUT",
+  KLUMP_PUBLIC_KEY: "KLUMP_PUBLIC_KEY",
+};
